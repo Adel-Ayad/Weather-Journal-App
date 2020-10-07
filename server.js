@@ -21,7 +21,7 @@ app.use(express.static('website'));
 
 const port = 3000;
 
-// TODO-Spin up the server
+//Spin up the server
 
 const server = app.listen(port, callv);
 
