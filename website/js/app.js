@@ -14,7 +14,7 @@ document.getElementById('generate').addEventListener('click', function () {
 });
 
 const getWeather = async (baseURL, zipCode, apiKEY) => {
-    const res = await fetch(`${baseURL}zip=${zipCode.value}&appid=${apiKEY}`);
+    const res = await fetch(`${baseURL}zip=${zipCode.value}&units=metric&appid=${apiKEY}`);
 
     try {
         const data = await res.json();
