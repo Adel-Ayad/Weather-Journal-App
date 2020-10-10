@@ -54,7 +54,7 @@ const getWeather = async (baseURL, zipCode, cityName, apiKEY) => {
         try {
             const apiRecievedData = await res.json();
             console.log(apiRecievedData);
-            zipCode.value = null
+            zipCode.value = null;
             return (apiRecievedData)
 
 
@@ -69,6 +69,7 @@ const getWeather = async (baseURL, zipCode, cityName, apiKEY) => {
         try {
             const apiRecievedData = await res.json();
             console.log(apiRecievedData);
+            cityName.value = null;
             return (apiRecievedData)
 
         } catch (error) {
@@ -103,6 +104,7 @@ const updateUI = async () => {
         temp.innerHTML = `Tempreture: ${weatherData[0].temp}° C`
         if (weatherData[0].feeling) {
             content.innerHTML = `You feel ${weatherData[0].feeling}.`
+            feeling.value = null
         }
         else {
             content.innerHTML = `It seems you feel Nothing.`
