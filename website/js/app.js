@@ -43,6 +43,7 @@ document.getElementById('generate').addEventListener('click', function () {
         city.innerHTML = ``
         temp.innerHTML = ``
         content.innerHTML = ``
+        dateEle.innerHTML = ``
         alert("Please enter your city's name OR zipcode");
     }
 
@@ -55,7 +56,19 @@ const getWeather = async (baseURL, zipCode, cityName, apiKEY) => {
             const apiRecievedData = await res.json();
             console.log(apiRecievedData);
             zipCode.value = null;
-            return (apiRecievedData)
+            if (apiRecievedData.cod == "404") {
+                //console.log("You have entered non-existed zipcode")
+                alert("You had entered non-existed zipcode");
+                noZipOrName.innerHTML = `Please Enter a Correct zipcode`
+                city.innerHTML = ``
+                temp.innerHTML = ``
+                content.innerHTML = ``
+                dateEle.innerHTML = ``
+
+            }
+            else { return (apiRecievedData) }
+
+
 
 
         } catch (error) {
@@ -69,8 +82,18 @@ const getWeather = async (baseURL, zipCode, cityName, apiKEY) => {
         try {
             const apiRecievedData = await res.json();
             console.log(apiRecievedData);
-            cityName.value = null;
-            return (apiRecievedData)
+            zipCode.value = null;
+            if (apiRecievedData.cod == "404") {
+                //console.log("You have entered non-existed city name")
+                alert("You had entered non-existed city name");
+                noZipOrName.innerHTML = `Please Enter a Correct city name`
+                city.innerHTML = ``
+                temp.innerHTML = ``
+                content.innerHTML = ``
+                dateEle.innerHTML = ``
+
+            }
+            else { return (apiRecievedData) }
 
         } catch (error) {
             console.log("error" + error);
@@ -80,7 +103,7 @@ const getWeather = async (baseURL, zipCode, cityName, apiKEY) => {
 }
 /* Function to POST data */
 const postData = async (url = '', dataToBePosted = {}) => {
-    //console.log(data)
+
     const response = await fetch(url, {
         method: 'POST',
         credentials: 'same-origin',
@@ -89,6 +112,11 @@ const postData = async (url = '', dataToBePosted = {}) => {
         },
         body: JSON.stringify(dataToBePosted),
     });
+    try {
+        console.log(dataToBePosted)
+    } catch (error) {
+        console.log(error);
+    }
 
 
 }
