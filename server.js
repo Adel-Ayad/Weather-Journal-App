@@ -39,6 +39,7 @@ function addWeatherData(req, res) {
   newEntry = {
     date: req.body.date,
     city: req.body.city,
+    country: req.body.country,
     feeling: req.body.feeling,
     temp: req.body.temp
   }

@@ -34,7 +34,7 @@ document.getElementById('generate').addEventListener('click', function () {
     if (zipCode.value || cityName.value) {
         getWeather(baseURL, zipCode, cityName, apiKEY)
             .then(async (data) => {
-                postData('/recieveWeatherData', { temp: data.main.temp, city: data.name, date: date, feeling: feeling.value });
+                postData('/recieveWeatherData', { temp: data.main.temp, city: data.name, country: data.sys.country, date: date, feeling: feeling.value });
                 updateUI();
             })
 
@@ -93,9 +93,9 @@ const updateUI = async () => {
     try {
         const weatherData = await req.json()
         noZipOrName.innerHTML = ``
-        city.innerHTML = `City: ${weatherData[0].city}`
+        city.innerHTML = `City: ${weatherData[0].city}, ${weatherData[0].country}`
         dateEle.innerHTML = `Date: ${weatherData[0].date}`
-        temp.innerHTML = `Tempreture:${weatherData[0].temp} C`
+        temp.innerHTML = `Tempreture: ${weatherData[0].temp}° C`
         if (weatherData[0].feeling) {
             content.innerHTML = `You feel ${weatherData[0].feeling}.`
         }
