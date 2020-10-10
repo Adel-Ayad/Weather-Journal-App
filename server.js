@@ -29,8 +29,7 @@ function callv() {
   console.log(`server is running on port ${port}`);
 };
 
-//Array where all recieved and processed data will be stored
-let weatherData = [];
+
 
 // be ready to recieve data from app.js(client side) 
 app.post('/recieveWeatherData', addWeatherData);
@@ -45,7 +44,7 @@ function addWeatherData(req, res) {
     temp: req.body.temp
   }
   // add processed data to  weather data array 
-  weatherData.unshift(newEntry)
+  projectData = newEntry
 
 }
 
@@ -54,5 +53,5 @@ function addWeatherData(req, res) {
 app.get('/fetchWeatherData', sendWeatherData)
 
 function sendWeatherData(req, res) {
-  res.send(weatherData) //send the array which contain processed data 
+  res.send(projectData) //send the array which contain processed data 
 }

@@ -50,7 +50,7 @@ document.getElementById('generate').addEventListener('click', function () {
     if (zipCode.value || cityName.value) {
         getWeather(baseURL, zipCode, cityName, apiKEY)
             .then(async (data) => {
-                postData('/recieveWeatherData', { temp: data.main.temp, city: data.name, country: data.sys.country, date: date, feeling: feeling.value });
+                postData('/recieveprojectData', { temp: data.main.temp, city: data.name, country: data.sys.country, date: date, feeling: feeling.value });
                 updateUI();
             })
 
@@ -151,20 +151,21 @@ const postData = async (url = '', dataToBePosted = {}) => {
 const updateUI = async () => {
     const req = await fetch('/fetchWeatherData')
     try {
-        const weatherData = await req.json();
+        const projectData = await req.json();
         mostRecentEntryTitle.innerHTML = `Most Recent Entry`;
         noZipOrName.innerHTML = ``;
-        city.innerHTML = `City: ${weatherData[0].city}, ${weatherData[0].country}`;
-        dateEle.innerHTML = `Date: ${weatherData[0].date}`;
-        temp.innerHTML = `Tempreture: ${weatherData[0].temp}° C`;
-        if (weatherData[0].feeling) {
-            content.innerHTML = `You feel ${weatherData[0].feeling}.`;
+        city.innerHTML = `City: ${projectData.city}, ${projectData.country}`;
+        dateEle.innerHTML = `Date: ${projectData.date}`;
+        temp.innerHTML = `Tempreture: ${projectData.temp}° C`;
+        if (projectData.feeling) {
+            content.innerHTML = `You feel ${projectData.feeling}.`;
             feeling.value = null;
         }
         else {
             content.innerHTML = `It seems you feel Nothing.`;
         }
     } catch (error) {
+        noZipOrName.innerHTML = `Something went wrong, Please try again`;
         console.log(error);
 
     }
