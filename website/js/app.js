@@ -39,10 +39,11 @@ document.getElementById('generate').addEventListener('click', function () {
             })
 
     } else {
-        noZipOrName.innerHTML = `Please enter your city's name OR zip code`
+        noZipOrName.innerHTML = `Please enter your city's name OR zipcode`
         city.innerHTML = ``
         temp.innerHTML = ``
         content.innerHTML = ``
+        alert("Please enter your city's name OR zipcode");
     }
 
 });
