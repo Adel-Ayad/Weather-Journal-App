@@ -3,6 +3,7 @@ const apiKEY = '6fb1b93facf0b26c02a4d5d087248a73';
 const zipCode = document.getElementById('zip');
 const cityName = document.getElementById('name');
 const noZipOrName = document.getElementById('noZipOrName');
+const mostRecentEntryTitle = document.getElementById('mostRecentEntryTitle');
 const feeling = document.getElementById('feelings');
 const city = document.getElementById('city');
 const temp = document.getElementById('temp');
@@ -40,6 +41,7 @@ document.getElementById('generate').addEventListener('click', function () {
 
     } else {
         noZipOrName.innerHTML = `Please enter your city's name OR zipcode`
+        mostRecentEntryTitle.innerHTML = ``
         city.innerHTML = ``
         temp.innerHTML = ``
         content.innerHTML = ``
@@ -60,6 +62,7 @@ const getWeather = async (baseURL, zipCode, cityName, apiKEY) => {
                 //console.log("You have entered non-existed zipcode")
                 alert("You had entered non-existed zipcode");
                 noZipOrName.innerHTML = `Please Enter a Correct zipcode`
+                mostRecentEntryTitle.innerHTML = ``
                 city.innerHTML = ``
                 temp.innerHTML = ``
                 content.innerHTML = ``
@@ -68,14 +71,12 @@ const getWeather = async (baseURL, zipCode, cityName, apiKEY) => {
             }
             else { return (apiRecievedData) }
 
-
-
-
         } catch (error) {
             console.log("error" + error);
         }
 
     }
+
     else {
         let res = await fetch(`${baseURL}q=${cityName.value.charAt(0).toUpperCase() + cityName.value.slice(1)}&units=metric&appid=${apiKEY}`);
 
@@ -87,6 +88,7 @@ const getWeather = async (baseURL, zipCode, cityName, apiKEY) => {
                 //console.log("You have entered non-existed city name")
                 alert("You had entered non-existed city name");
                 noZipOrName.innerHTML = `Please Enter a Correct city name`
+                mostRecentEntryTitle.innerHTML = ``
                 city.innerHTML = ``
                 temp.innerHTML = ``
                 content.innerHTML = ``
@@ -127,6 +129,7 @@ const updateUI = async () => {
     try {
         const weatherData = await req.json()
         noZipOrName.innerHTML = ``
+        mostRecentEntryTitle.innerHTML = `Most Recent Entry`
         city.innerHTML = `City: ${weatherData[0].city}, ${weatherData[0].country}`
         dateEle.innerHTML = `Date: ${weatherData[0].date}`
         temp.innerHTML = `Tempreture: ${weatherData[0].temp}° C`
