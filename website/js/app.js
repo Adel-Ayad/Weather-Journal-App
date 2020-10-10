@@ -52,9 +52,12 @@ const getWeather = async (baseURL, zipCode, cityName, apiKEY) => {
     if (zipCode.value) {
         let res = await fetch(`${baseURL}zip=${zipCode.value}&units=metric&appid=${apiKEY}`);
         try {
-            const data = await res.json();
-            return (data)
-            // console.log(data);
+            const apiRecievedData = await res.json();
+            console.log(apiRecievedData);
+            zipCode.value = null
+            return (apiRecievedData)
+
+
         } catch (error) {
             console.log("error" + error);
         }
@@ -64,9 +67,10 @@ const getWeather = async (baseURL, zipCode, cityName, apiKEY) => {
         let res = await fetch(`${baseURL}q=${cityName.value.charAt(0).toUpperCase() + cityName.value.slice(1)}&units=metric&appid=${apiKEY}`);
 
         try {
-            const data = await res.json();
-            return (data)
-            // console.log(data);
+            const apiRecievedData = await res.json();
+            console.log(apiRecievedData);
+            return (apiRecievedData)
+
         } catch (error) {
             console.log("error" + error);
         }
@@ -74,7 +78,7 @@ const getWeather = async (baseURL, zipCode, cityName, apiKEY) => {
 
 }
 /* Function to POST data */
-const postData = async (url = '', data = {}) => {
+const postData = async (url = '', dataToBePosted = {}) => {
     //console.log(data)
     const response = await fetch(url, {
         method: 'POST',
@@ -82,7 +86,7 @@ const postData = async (url = '', data = {}) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(dataToBePosted),
     });
 
 
