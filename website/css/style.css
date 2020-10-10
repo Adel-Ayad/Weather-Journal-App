@@ -1,7 +1,81 @@
 body {
+    display: grid;
+    grid-auto-rows: minmax(150px, auto);
+    height:100vh;
+    background: #fffff8;
+    color: #2b1f1c;
+    justify-content: left;
+    grid-gap: 20px;
+    font-size: 20px;
+    font-family: 'Oswald', sans-serif;
+    margin: 30px;
+   
     
 }
 
+
+
+
+input, textarea{
+    display:block;
+    height: 60px;
+    width: 320px;
+    background:#dbe2e4;
+    color: #000000;
+    font-size: 20px;
+    font-family: 'Oswald', sans-serif;
+    border-color: black;
+    border-width: 1px;
+    margin-bottom: 20px;
+}
+textarea{
+    height: 100px;
+
+}
+
+button{
+    width: 200px;
+    height: 75px;
+    background: #6b81b1;
+    color: #cf0e0e;
+    font-size: 26px;
+    font-family: 'Oswald', sans-serif;
+    border: none;
+    box-shadow: 2px 4px 5px #444;
+    cursor: pointer;
+    margin: none;
+    margin-bottom: 30px;
+}
+
+
+
+
+ .selectMethod {
+    display: flex;
+    flex-direction: row;
+    justify-content:  space-around;
+
+   
+    
+}
+
+#searchMethodButton{
+    min-width: 250px ;
+    height: 40px;
+    text-align: center;
+
+}
+
+#OR {
+    font-size: 30px;
+    justify-content:  space-between;
+}
+.holderEntry{
+    background: rgba(204, 206, 209, 0.4);}
+#noZipOrName{
+color: crimson;
+    }
 .hiddenClass{
     display:none
 }
+ 

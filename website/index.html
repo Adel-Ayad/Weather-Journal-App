@@ -9,20 +9,24 @@
 </head>
 
 <body>
-  <div class="selectMethod">
-    <button id="searchMethodButton">Search by City Name</button>
-  </div>
-  <div class="holderZip">
-    <label for="zip">Enter Zipcode here</label>
-    <input type="text" id="zip" placeholder="enter zip code here">
+  <div class="search">
+    <div class="holderZip">
+      <label for="zip">Enter Zipcode here</label>
+      <input type="text" id="zip" placeholder="enter zip code here">
+    </div>
+    <div class="holderName hiddenClass">
+      <label for="name">Enter City Name here</label>
+      <input type="text" id="name" placeholder="enter city name here">
+    </div>
+    <div class="selectMethod">
+      <div id="OR">OR</div>
+      <button id="searchMethodButton">Search by City Name</button>
+    </div>
   </div>
 
-  <div class="holderName hiddenClass">
-    <label for="name">Enter City Name here</label>
-    <input type="text" id="name" placeholder="enter city name here">
-  </div>
 
-  <div class="holder feel">
+
+  <div class="holderFeel">
     <label for="feelings">How are you feeling today?</label>
     <textarea class="myInput" id="feelings" placeholder="Enter your feelings here" rows="9" cols="50"></textarea>
   </div>
@@ -31,7 +35,7 @@
   </div>
 
 
-  <div class="holder entry">
+  <div class="holderEntry">
     <div class="title" id="mostRecentEntryTitle"></div>
     <div id="entryHolder">
       <div id=noZipOrName></div>
