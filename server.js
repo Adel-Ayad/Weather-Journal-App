@@ -26,23 +26,30 @@ const port = 3000;
 const server = app.listen(port, callv);
 
 function callv() {
-    console.log(`server is running on port ${port}`);
+  console.log(`server is running on port ${port}`);
 };
 
-app.post('/currentWeather', updateWeather);
-
-function updateWeather(req, res) {
+let weatherData = [];
 
 
-    console.log(req.body);
-    /*  newEntry = {
-       animal: req.body.animal,
-       facts: req.body.fact,
-       fav: req.body.fav
-     } */
+app.post('/recieveWeatherData', addWeatherData);
+
+function addWeatherData(req, res) {
+  //console.log(req.body);
+  newEntry = {
+    date: req.body.date,
+    city: req.body.city,
+    feeling: req.body.feeling,
+    temp: req.body.temp
+  }
+  weatherData.unshift(newEntry)
+  //console.log(weatheData)
+}
 
 
-    /* 
-      animalData.push(newEntry)
-      console.log(animalData) */
+
+app.get('/fetchWeatherData', sendWeatherData)
+
+function sendWeatherData(req, res) {
+  res.send(weatherData)
 }

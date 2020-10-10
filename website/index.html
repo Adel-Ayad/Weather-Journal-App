@@ -9,10 +9,19 @@
 </head>
 
 <body>
-  <div class="holder zip">
+  <div class="selectMethod">
+    <button id="searchMethodButton">Search by City Name</button>
+  </div>
+  <div class="holderZip">
     <label for="zip">Enter Zipcode here</label>
     <input type="text" id="zip" placeholder="enter zip code here">
   </div>
+
+  <div class="holderName hiddenClass">
+    <label for="name">Enter City Name here</label>
+    <input type="text" id="name" placeholder="enter city name here">
+  </div>
+
   <div class="holder feel">
     <label for="feelings">How are you feeling today?</label>
     <textarea class="myInput" id="feelings" placeholder="Enter your feelings here" rows="9" cols="50"></textarea>
@@ -25,9 +34,11 @@
   <div class="holder entry">
     <div class="title">Most Recent Entry</div>
     <div id="entryHolder">
-      <div id="date">Date:</div>
-      <div id="temp">Temprature:</div>
-      <div id="content">Your Feelings:</div>
+      <div id=noZipOrName></div>
+      <div id="city"></div>
+      <div id="dateEle"></div>
+      <div id="temp"></div>
+      <div id="content"></div>
     </div>
   </div>
   <script src="js/app.js" type="text/javascript"></script>
