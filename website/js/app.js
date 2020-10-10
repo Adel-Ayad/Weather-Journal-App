@@ -1,37 +1,52 @@
-const baseURL = 'http://api.openweathermap.org/data/2.5/weather?';
-const apiKEY = '6fb1b93facf0b26c02a4d5d087248a73';
-const zipCode = document.getElementById('zip');
-const cityName = document.getElementById('name');
-const noZipOrName = document.getElementById('noZipOrName');
-const mostRecentEntryTitle = document.getElementById('mostRecentEntryTitle');
-const feeling = document.getElementById('feelings');
-const city = document.getElementById('city');
-const temp = document.getElementById('temp');
-const content = document.getElementById('content');
-const dateEle = document.getElementById('dateEle');
-const searchMethodButton = document.getElementById('searchMethodButton');
+/* global varibles*/
+//Api stuff
+const baseURL = 'http://api.openweathermap.org/data/2.5/weather?',
+    apiKEY = '6fb1b93facf0b26c02a4d5d087248a73',
+    //Inputs
+    zipCode = document.getElementById('zip'),
+    cityName = document.getElementById('name'),
+    feeling = document.getElementById('feelings'),
+    //Recent entry
+    mostRecentEntryTitle = document.getElementById('mostRecentEntryTitle'),
+    noZipOrName = document.getElementById('noZipOrName'),
+    city = document.getElementById('city'),
+    dateEle = document.getElementById('dateEle'),
+    temp = document.getElementById('temp'),
+    content = document.getElementById('content'),
+    //Search method
+    searchMethodButton = document.getElementById('searchMethodButton'),
+    holderZip = document.querySelector(".holderZip"),
+    holderName = document.querySelector(".holderName");
+//Date
 d = new Date();
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const date = `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
-const holderZip = document.querySelector(".holderZip");
-const holderName = document.querySelector(".holderName");
 
+
+
+/*Change Search Method */
 searchMethodButton.addEventListener('click', function () {
+    // hide the shown and show the hidden
     holderZip.classList.toggle("hiddenClass");
     holderName.classList.toggle("hiddenClass");
 
+    // clear input boxes to prevent errors or getting the same result 
+    zipCode.value = null;
+    cityName.value = null;
+
+    // change the text inside the button
     if (searchMethodButton.innerText == 'Search by Zipcode') {
         searchMethodButton.innerText = 'Search by City Name'
     }
 
     else { searchMethodButton.innerText = 'Search by Zipcode' }
 
-
-
-
 })
+
+
+
 document.getElementById('generate').addEventListener('click', function () {
-    //console.log(zipCode)
+    //If there is zipcode or city name then play getweather func + post data to server + and UpdateUI
     if (zipCode.value || cityName.value) {
         getWeather(baseURL, zipCode, cityName, apiKEY)
             .then(async (data) => {
@@ -40,35 +55,43 @@ document.getElementById('generate').addEventListener('click', function () {
             })
 
     } else {
-        noZipOrName.innerHTML = `Please enter your city's name OR zipcode`
-        mostRecentEntryTitle.innerHTML = ``
-        city.innerHTML = ``
-        temp.innerHTML = ``
-        content.innerHTML = ``
-        dateEle.innerHTML = ``
+        //If there is no zipcode or city name Notify the User and clear the Most recent entry
         alert("Please enter your city's name OR zipcode");
+        mostRecentEntryTitle.innerHTML = ``;
+        noZipOrName.innerHTML = `Please enter your city's name OR zipcode`;
+        city.innerHTML = ``;
+        dateEle.innerHTML = ``;
+        temp.innerHTML = ``;
+        content.innerHTML = ``;
+
+
     }
 
 });
 
+/*Get the Weather info from Api */
 const getWeather = async (baseURL, zipCode, cityName, apiKEY) => {
+    /*By zip code */
     if (zipCode.value) {
         let res = await fetch(`${baseURL}zip=${zipCode.value}&units=metric&appid=${apiKEY}`);
         try {
             const apiRecievedData = await res.json();
             console.log(apiRecievedData);
             zipCode.value = null;
+            //if the zipcode is WRONG Notify the User and clear the Most recent entry
             if (apiRecievedData.cod == "404") {
                 //console.log("You have entered non-existed zipcode")
                 alert("You had entered non-existed zipcode");
-                noZipOrName.innerHTML = `Please Enter a Correct zipcode`
-                mostRecentEntryTitle.innerHTML = ``
-                city.innerHTML = ``
-                temp.innerHTML = ``
-                content.innerHTML = ``
-                dateEle.innerHTML = ``
+                mostRecentEntryTitle.innerHTML = ``;
+                noZipOrName.innerHTML = `Please Enter a Correct zipcode`;
+                city.innerHTML = ``;
+                dateEle.innerHTML = ``;
+                temp.innerHTML = ``;
+                content.innerHTML = ``;
+
 
             }
+            // if every thing is OK return the data
             else { return (apiRecievedData) }
 
         } catch (error) {
@@ -76,23 +99,24 @@ const getWeather = async (baseURL, zipCode, cityName, apiKEY) => {
         }
 
     }
-
+    /*By city name */
     else {
         let res = await fetch(`${baseURL}q=${cityName.value.charAt(0).toUpperCase() + cityName.value.slice(1)}&units=metric&appid=${apiKEY}`);
 
         try {
             const apiRecievedData = await res.json();
             console.log(apiRecievedData);
-            zipCode.value = null;
+            cityName.value = null;
             if (apiRecievedData.cod == "404") {
                 //console.log("You have entered non-existed city name")
                 alert("You had entered non-existed city name");
-                noZipOrName.innerHTML = `Please Enter a Correct city name`
-                mostRecentEntryTitle.innerHTML = ``
-                city.innerHTML = ``
-                temp.innerHTML = ``
-                content.innerHTML = ``
-                dateEle.innerHTML = ``
+                mostRecentEntryTitle.innerHTML = ``;
+                noZipOrName.innerHTML = `Please Enter a Correct city name`;
+                city.innerHTML = ``;
+                dateEle.innerHTML = ``;
+                temp.innerHTML = ``;
+                content.innerHTML = ``;
+
 
             }
             else { return (apiRecievedData) }
@@ -103,7 +127,7 @@ const getWeather = async (baseURL, zipCode, cityName, apiKEY) => {
     }
 
 }
-/* Function to POST data */
+/*  POST Weather data to server to be processed*/
 const postData = async (url = '', dataToBePosted = {}) => {
 
     const response = await fetch(url, {
@@ -112,10 +136,10 @@ const postData = async (url = '', dataToBePosted = {}) => {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(dataToBePosted),
+        body: JSON.stringify(dataToBePosted)
     });
     try {
-        console.log(dataToBePosted)
+        console.log(dataToBePosted);
     } catch (error) {
         console.log(error);
     }
@@ -123,25 +147,25 @@ const postData = async (url = '', dataToBePosted = {}) => {
 
 }
 
-
+/*Fetch and Recieve the processed data Then Update UI accordingly */
 const updateUI = async () => {
     const req = await fetch('/fetchWeatherData')
     try {
-        const weatherData = await req.json()
-        noZipOrName.innerHTML = ``
-        mostRecentEntryTitle.innerHTML = `Most Recent Entry`
-        city.innerHTML = `City: ${weatherData[0].city}, ${weatherData[0].country}`
-        dateEle.innerHTML = `Date: ${weatherData[0].date}`
-        temp.innerHTML = `Tempreture: ${weatherData[0].temp}° C`
+        const weatherData = await req.json();
+        mostRecentEntryTitle.innerHTML = `Most Recent Entry`;
+        noZipOrName.innerHTML = ``;
+        city.innerHTML = `City: ${weatherData[0].city}, ${weatherData[0].country}`;
+        dateEle.innerHTML = `Date: ${weatherData[0].date}`;
+        temp.innerHTML = `Tempreture: ${weatherData[0].temp}° C`;
         if (weatherData[0].feeling) {
-            content.innerHTML = `You feel ${weatherData[0].feeling}.`
-            feeling.value = null
+            content.innerHTML = `You feel ${weatherData[0].feeling}.`;
+            feeling.value = null;
         }
         else {
-            content.innerHTML = `It seems you feel Nothing.`
+            content.innerHTML = `It seems you feel Nothing.`;
         }
     } catch (error) {
-        console.log(error)
+        console.log(error);
 
     }
 }

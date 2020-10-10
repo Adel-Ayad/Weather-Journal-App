@@ -1,14 +1,29 @@
-body {
-    display: grid;
-    grid-auto-rows: minmax(150px, auto);
+body{
+    font-family: 'Oswald', sans-serif;
+}
+nav{
+
+    height: 60px;
+    font-size: 36px;
+    background: #3b4a6b;
+    color: #f0d43a;
+    text-justify: newspaper;
+    text-align: left;
+    font-weight: bold;
+    
+    vertical-align: middle;
+    
+    }
+.app {
+    display: flex;
+    flex-direction: column;
     height:100vh;
     background: #fffff8;
     color: #2b1f1c;
     justify-content: left;
-    grid-gap: 20px;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
-    margin: 30px;
+    margin-left: 30px;
    
     
 }
@@ -36,8 +51,8 @@ textarea{
 button{
     width: 200px;
     height: 75px;
-    background: #6b81b1;
-    color: #cf0e0e;
+    background: #90a8da;
+    color: #992828;
     font-size: 26px;
     font-family: 'Oswald', sans-serif;
     border: none;
@@ -46,14 +61,16 @@ button{
     margin: none;
     margin-bottom: 30px;
 }
-
+button:focus {
+    outline: none;
+}
 
 
 
  .selectMethod {
     display: flex;
     flex-direction: row;
-    justify-content:  space-around;
+    justify-content:  left;
 
    
     
@@ -69,9 +86,13 @@ button{
 #OR {
     font-size: 30px;
     justify-content:  space-between;
+    margin-right:5px ;
 }
 .holderEntry{
     background: rgba(204, 206, 209, 0.4);}
+.title{
+    font-weight: bold;
+}
 #noZipOrName{
 color: crimson;
     }
